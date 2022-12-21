@@ -6,28 +6,15 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    queryPlaces,
-    getPlace,
-    removePlace,
-    savePlace,
+    goToUserLocation
 }
 
 // Var that is used throughout this Module (not global)
 var gMap
 
 
-
-
-
-
-function goToUserLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        console.log('lat:', lat)
-        console.log('lng:', lng)
-        // initMap(lat, lng)
-    });
+function goToUserLocation(lat, lng) {
+        initMap(lat, lng)
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {

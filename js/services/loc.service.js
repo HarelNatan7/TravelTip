@@ -3,7 +3,11 @@ import { storageService } from './async-storage.service.js'
 export const locService = {
     getLocs,
     getStroageKey,
-    addPlace
+    addPlace,
+    queryPlaces,
+    getPlace,
+    removePlace,
+    savePlace,
 }
 const STORAGE_PLACES_KEY = 'placesDB'
 
