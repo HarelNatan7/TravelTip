@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(204, 207, 207);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.header-container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+.main-content-container {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-around;
+    background-color: black;
+    color: aliceblue;
+    font-size: 20px;
+}
+
+.map {
+    /* order: 2; */
+}
+
+.btn-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-container button {
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 17px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+
+
+.weather-loc-container {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
