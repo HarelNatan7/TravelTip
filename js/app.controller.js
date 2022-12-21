@@ -61,11 +61,15 @@ function onAddPlace(ev) {
         lng: ev.latLng.lng(),
         time: createFormatedDate(Date.now())
     }
-    mapService.addPlace(location)
-    // renderPlaceList()
+    locService.addPlace(location)
+    renderPlaceList()
     // renderMarkers(gMap)
     // console.log('gMap', gMap);
     console.log('location', location);
+
+}
+
+function renderPlaceList() {
 
 }
 
