@@ -10,6 +10,7 @@ window.onGetUserPos = onGetUserPos
 window.onAddPlace = onAddPlace
 window.onUserLocation = onUserLocation
 window.onGoTo = onGoTo
+window.onSearchLocation = onSearchLocation
 
 function onInit() {
     mapService.initMap()
@@ -18,6 +19,11 @@ function onInit() {
         })
         .catch(() => console.log('Error: cannot init map'))
 
+}
+
+function onSearchLocation() {
+    let locationName = document.getElementById('search').value
+    mapService.goToSearchedLocation(locationName)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -42,8 +48,6 @@ function onGetUserPos() {
     getPosition()
         .then(pos => {
             console.log('User position is:', pos.coords)
-            document.querySelector('.user-pos').innerText =
-                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -112,4 +116,8 @@ function createFormatedDate(date) {
 
 function onUserLocation() {
     goToUserLocation()
+}
+function onUserLocation() {
+    getPosition()
+        .then(pos => mapService.goToUserLocation(pos.coords.latitude, pos.coords.longitude))
 }

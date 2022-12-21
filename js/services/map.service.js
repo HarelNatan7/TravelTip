@@ -6,25 +6,16 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-
+    goToUserLocation,
+    goToSearchedLocation
 }
 
 // Var that is used throughout this Module (not global)
 var gMap
 
 
-
-
-
-
-function goToUserLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        console.log('lat:', lat)
-        console.log('lng:', lng)
-        // initMap(lat, lng)
-    });
+function goToUserLocation(lat, lng) {
+        initMap(lat, lng)
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -69,5 +60,13 @@ function _connectGoogleApi() {
     return new Promise((resolve, reject) => {
         elGoogleApi.onload = resolve
         elGoogleApi.onerror = () => reject('Google script failed to load')
+    })
+}
+
+function goToSearchedLocation(locationName) {
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+${locationName}&key=AIzaSyBlbVbvWFhmMwFiVvbSeax1Af8UpghJ6CY`).then(res => {
+        let location = res.data.results[0].geometry.location
+        console.log('location:', location)
+        initMap(location.lat, location.lng)
     })
 }
