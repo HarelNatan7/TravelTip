@@ -1,21 +1,42 @@
 import { storageService } from './async-storage.service.js'
 
+
+
 export const locService = {
     getLocs,
-    getStroageKey,
+    getStorageKey,
     addPlace,
     queryPlaces,
     getPlace,
     removePlace,
     savePlace,
+    getCurrLocation,
+    deleteLoc
 }
 const STORAGE_PLACES_KEY = 'placesDB'
 
 let locs = [
-    { name: 'Greatplace', lat: 32.047104, lng: 34.832384, },
-    { name: 'Neveragain', lat: 32.047201, lng: 34.832581, }
+    { name: 'Greatplace', lat: 32.047104, lng: 34.832384, time: '12/21/2022, 19:31' },
+    { name: 'Neveragain', lat: 32.047201, lng: 34.832581, time: '02/28/2022, 09:01' }
 ]
 _createDemoPlaces()
+
+
+
+function deleteLoc(id) {
+    return storageService.remove(STORAGE_PLACES_KEY, id).then(res => {
+        locs = storageService._load(STORAGE_PLACES_KEY)
+        return res
+    })
+}
+
+function getCurrLocation(id) {
+    return storageService.get(STORAGE_PLACES_KEY, id).then(res => {
+        return res
+    })
+
+
+}
 
 
 function getLocs() {
@@ -26,7 +47,7 @@ function getLocs() {
     })
 }
 
-function getStroageKey() {
+function getStorageKey() {
     return STORAGE_PLACES_KEY
 }
 

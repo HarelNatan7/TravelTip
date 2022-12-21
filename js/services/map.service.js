@@ -7,15 +7,18 @@ export const mapService = {
     addMarker,
     panTo,
     goToUserLocation,
-    goToSearchedLocation
+    goToSearchedLocation,
 }
 
 // Var that is used throughout this Module (not global)
 var gMap
 
 
+
+
+
 function goToUserLocation(lat, lng) {
-        initMap(lat, lng)
+    initMap(lat, lng)
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {

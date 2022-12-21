@@ -11,6 +11,7 @@ window.onAddPlace = onAddPlace
 window.onUserLocation = onUserLocation
 window.onSearchLocation = onSearchLocation
 window.onGoTo = onGoTo
+window.onDelete = onDelete
 
 function onInit() {
     mapService.initMap()
@@ -18,7 +19,7 @@ function onInit() {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
-
+    renderPlaceList()
 }
 
 function onSearchLocation() {
@@ -45,7 +46,7 @@ function onGetLocs() {
             console.log('Locations:', locs)
             document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
         })
-    renderPlaceList()
+
 }
 
 function onGetUserPos() {
@@ -63,8 +64,8 @@ function onPanTo() {
 }
 
 function onAddPlace(ev) {
-
     const location = {
+        name: prompt('Location name ?'),
         lat: ev.latLng.lat(),
         lng: ev.latLng.lng(),
         time: createFormatedDate(Date.now())
@@ -73,7 +74,7 @@ function onAddPlace(ev) {
     // renderMarkers(gMap)
     // console.log('gMap', gMap);
     console.log('location', location);
-
+    renderPlaceList()
 }
 
 function renderPlaceList() {
@@ -83,9 +84,7 @@ function renderPlaceList() {
         const strHTML = places.map(place =>
             `
              <ul class="list-locs">
-             <li>id: ${place.id}</li>
-             <li>lat:${place.lat} </li>
-             <li>lng: ${place.lng}</li>
+             <li>name: ${place.name}</li>
              <li>time: ${place.time}</li>
              <div class="ul-btn-container"> 
              <button id="${place.id}" onclick="onGoTo(this.id)" class="btn-go-to">Go to</button>
@@ -101,10 +100,16 @@ function renderPlaceList() {
 
 }
 
+
+function onDelete(id) {
+    locService.deleteLoc(id)
+    renderPlaceList()
+}
+
 function onGoTo(id) {
-    console.log('id', id);
-
-
+    locService.getCurrLocation(id).then(res => {
+        return mapService.initMap(res.lat, res.lng)
+    })
 }
 
 
