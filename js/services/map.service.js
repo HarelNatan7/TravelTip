@@ -5,7 +5,11 @@ import { storageService } from './async-storage.service.js'
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    queryPlaces,
+    getPlace,
+    removePlace,
+    savePlace
 }
 
 
@@ -41,6 +45,29 @@ function _createPlaces() {
     localService.save(STORAGE_PLACES_KEY, places)
     return places
 
+}
+
+function queryPlaces() {
+    return storageService.query(STORAGE_PLACES_KEY)
+    .then(places => {
+        return places
+    })
+}
+
+function getPlace(placeId) {
+    return storageService.get(STORAGE_PLACES_KEY, placeId)
+}
+
+function removePlace(placeId) {
+    return storageService.remove(STORAGE_PLACES_KEY, placeId)
+}
+
+function savePlace(place) {
+    if (place.id) {
+        return storageService.put(STORAGE_PLACES_KEY, place)
+    } else {
+        return storageService.post(STORAGE_PLACES_KEY, place)
+    }
 }
 
 function _createPlace(loc) {
