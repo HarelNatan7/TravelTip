@@ -52,10 +52,8 @@ function _createDemoPlaces() {
 
 function addPlace(loc) {
     storageService.post(STORAGE_PLACES_KEY, loc).then(loc => {
-        console.log('loc', loc);
         locs.unshift(loc)
 
-        console.log('locs', locs);
     })
 
 }

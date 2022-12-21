@@ -9,8 +9,8 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onAddPlace = onAddPlace
 window.onUserLocation = onUserLocation
-window.onGoTo = onGoTo
 window.onSearchLocation = onSearchLocation
+window.onGoTo = onGoTo
 
 function onInit() {
     mapService.initMap()
@@ -41,7 +41,11 @@ function onAddMarker() {
 
 function onGetLocs() {
     locService.getLocs()
-        .then(renderPlaceList())
+        .then(locs => {
+            console.log('Locations:', locs)
+            document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
+        })
+    renderPlaceList()
 }
 
 function onGetUserPos() {
@@ -84,8 +88,8 @@ function renderPlaceList() {
              <li>lng: ${place.lng}</li>
              <li>time: ${place.time}</li>
              <div class="ul-btn-container"> 
-             <button vlaue="${place.id}" onclick="onGoTo(this.id)" class="btn-go-to">Go to</button>
-             <button vlaue="${place.id}" onclick="onDelete(this.id)" class="btn-del">Delete!</button>
+             <button id="${place.id}" onclick="onGoTo(this.id)" class="btn-go-to">Go to</button>
+             <button id="${place.id}" onclick="onDelete(this.id)" class="btn-del">Delete!</button>
              </div>
          </ul>
              `
@@ -104,6 +108,7 @@ function onGoTo(id) {
 }
 
 
+
 function createFormatedDate(date) {
     const formatedDate = new Intl.DateTimeFormat('en').format(date)
     const options = {
@@ -114,9 +119,7 @@ function createFormatedDate(date) {
     return formatedDate + ', ' + formatedTime
 }
 
-function onUserLocation() {
-    goToUserLocation()
-}
+
 function onUserLocation() {
     getPosition()
         .then(pos => mapService.goToUserLocation(pos.coords.latitude, pos.coords.longitude))
