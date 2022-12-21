@@ -9,6 +9,7 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onAddPlace = onAddPlace
 window.onUserLocation = onUserLocation
+window.onGoTo = onGoTo
 
 function onInit() {
     mapService.initMap()
@@ -17,7 +18,6 @@ function onInit() {
         })
         .catch(() => console.log('Error: cannot init map'))
 
-    renderPlaceList()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -35,10 +35,7 @@ function onAddMarker() {
 
 function onGetLocs() {
     locService.getLocs()
-        .then(locs => {
-            console.log('Locations:', locs)
-            document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
-        })
+        .then(renderPlaceList())
 }
 
 function onGetUserPos() {
@@ -65,7 +62,6 @@ function onAddPlace(ev) {
         time: createFormatedDate(Date.now())
     }
     locService.addPlace(location)
-    renderPlaceList()
     // renderMarkers(gMap)
     // console.log('gMap', gMap);
     console.log('location', location);
@@ -73,20 +69,33 @@ function onAddPlace(ev) {
 }
 
 function renderPlaceList() {
-    const places = locService.getPlaces()
-    console.log('places', places);
-    const strHTML = places.map(place =>
-        `
-        <ul>
-        <li>id: ${place.id}</li>
-        <li>lat:${place.lat} </li>
-        <li>lng: ${place.lng}</li>
-        <li>time: ${place.time}</li>
-    </ul>
-        `
-    ).join('')
-    const elLocs = document.querySelector('.locs')
-    elLocs.innerHTML = strHTML
+    return locService.getLocs().then(places => {
+        console.log('places', places);
+
+        const strHTML = places.map(place =>
+            `
+             <ul class="list-locs">
+             <li>id: ${place.id}</li>
+             <li>lat:${place.lat} </li>
+             <li>lng: ${place.lng}</li>
+             <li>time: ${place.time}</li>
+             <div class="ul-btn-container"> 
+             <button vlaue="${place.id}" onclick="onGoTo(this.id)" class="btn-go-to">Go to</button>
+             <button vlaue="${place.id}" onclick="onDelete(this.id)" class="btn-del">Delete!</button>
+             </div>
+         </ul>
+             `
+        ).join('')
+        const elLocs = document.querySelector('.locs')
+        elLocs.innerHTML = strHTML
+
+    })
+
+}
+
+function onGoTo(id) {
+    console.log('id', id);
+
 
 }
 

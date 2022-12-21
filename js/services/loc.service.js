@@ -8,17 +8,15 @@ export const locService = {
     getPlace,
     removePlace,
     savePlace,
-    getPlaces
 }
 const STORAGE_PLACES_KEY = 'placesDB'
 
-const gPlaces = storageService._load(STORAGE_PLACES_KEY) || _createDemoPlace()
-
-
-const locs = [
-    { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-    { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
+let locs = [
+    { name: 'Greatplace', lat: 32.047104, lng: 34.832384, },
+    { name: 'Neveragain', lat: 32.047201, lng: 34.832581, }
 ]
+_createDemoPlaces()
+
 
 function getLocs() {
     return new Promise((resolve, reject) => {
@@ -33,31 +31,36 @@ function getStroageKey() {
 }
 
 
-console.log('gPlaces', gPlaces);
-
-function _createDemoPlace() {
-    const place = {
-        lat: 32,
-        lng: 32,
-        name: 'Home',
-        time: '16/10/22, 13:01'
+function _createDemoPlaces() {
+    if (storageService._load(STORAGE_PLACES_KEY)) {
+        locs = storageService._load(STORAGE_PLACES_KEY)
+        return
     }
-    storageService.post(STORAGE_PLACES_KEY, place)
-    return place
+    getLocs().then(locs => {
+        console.log('locs', locs);
+
+        storageService.post(STORAGE_PLACES_KEY, locs[0])
+        setTimeout(() => {
+            storageService.post(STORAGE_PLACES_KEY, locs[1])
+        }, 1000);
+    })
+
+
 }
 
 
-function _createPlace(loc) {
-    storageService.post(STORAGE_PLACES_KEY, loc)
-}
 
 function addPlace(loc) {
-    gPlaces.unshift(_createPlace(loc))
+    storageService.post(STORAGE_PLACES_KEY, loc).then(loc => {
+        console.log('loc', loc);
+        locs.unshift(loc)
+
+        console.log('locs', locs);
+    })
+
 }
 
-function getPlaces() {
-    return gPlaces
-}
+
 
 
 function queryPlaces() {
