@@ -55,6 +55,8 @@ function queryParams(res) {
 
 
 function addMarker(loc) {
+    console.log('locMARKER', loc);
+
     let iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     var marker = new google.maps.Marker({
         position: loc,
