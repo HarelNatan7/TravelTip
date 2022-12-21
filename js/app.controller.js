@@ -57,12 +57,11 @@ function onPanTo() {
 function onAddPlace(ev) {
 
     const location = {
-        id: util.makeId(),
         lat: ev.latLng.lat(),
         lng: ev.latLng.lng(),
         time: createFormatedDate(Date.now())
     }
-    addPlace(location)
+    mapService.addPlace(location)
     // renderPlaceList()
     // renderMarkers(gMap)
     // console.log('gMap', gMap);

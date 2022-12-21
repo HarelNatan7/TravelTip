@@ -5,7 +5,8 @@ import { storageService } from './async-storage.service.js'
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    addPlace
 }
 
 
@@ -13,54 +14,29 @@ export const mapService = {
 var gMap
 const STORAGE_PLACES_KEY = 'placesDB'
 
-const gPlaces = localService.load(STORAGE_PLACES_KEY) || _createPlaces()
+const gPlaces = storageService._load(STORAGE_PLACES_KEY) || _createDemoPlace()
 
 console.log('gPlaces', gPlaces);
 
 
-function _createPlaces() {
-    const places = [{
-        id: util.makeId(),
+function _createDemoPlace() {
+    const place = {
         lat: 32,
         lng: 32,
         name: 'Home',
         time: '16/10/22, 13:01'
-    }, {
-        id: util.makeId(),
-        lat: 55,
-        lng: 55,
-        name: 'Burekas Haagala',
-        time: '16/10/22, 13:01'
-    }, {
-        id: util.makeId(),
-        lat: 11,
-        lng: 11,
-        name: 'savta',
-        time: '16/10/22, 13:01'
-    }]
-    localService.save(STORAGE_PLACES_KEY, places)
-    return places
-
+    }
+    storageService.post(STORAGE_PLACES_KEY, place)
+    return place
 }
 
 function _createPlace(loc) {
-
-
-
+    storageService.post(STORAGE_PLACES_KEY, loc)
 }
-
 
 function addPlace(loc) {
-
     gPlaces.unshift(_createPlace(loc))
-    localService.save(STORAGE_PLACES_KEY, gPlaces)
-
-
 }
-
-
-
-
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
