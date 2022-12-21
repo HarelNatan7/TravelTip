@@ -8,7 +8,6 @@ export const mapService = {
     panTo,
     goToUserLocation,
     goToSearchedLocation,
-    queryParams
 }
 
 // Var that is used throughout this Module (not global)
@@ -19,13 +18,10 @@ var gMap
 
 
 function goToUserLocation(lat, lng) {
-
     initMap(lat, lng)
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap')
-    queryParams({ lat: lat, lng: lng })
     return _connectGoogleApi()
         .then(() => {
             console.log('google available')
@@ -34,8 +30,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 center: { lat, lng },
                 zoom: 12
             })
-            console.log('Map!', gMap)
-
             gMap.addListener("click", onAddPlace)
         })
 

@@ -11,7 +11,8 @@ export const locService = {
     removePlace,
     savePlace,
     getCurrLocation,
-    deleteLoc
+    deleteLoc,
+    getWeather
 }
 const STORAGE_PLACES_KEY = 'placesDB'
 
@@ -103,4 +104,22 @@ function savePlace(place) {
     } else {
         return storageService.post(STORAGE_PLACES_KEY, place)
     }
+}
+
+function getWeather(lat, lan) {
+    const WeAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lan}&appid=dfc218ff46f1927e47993f84a5372d8f`
+    return axios.get(WeAPI).then(res => {
+        res = res.data
+        // console.log('res:', res)
+        // console.log('res.weather[0].main:', res.weather[0].main)
+        // console.log('res.main.temp:', res.main.temp)
+        let weather = res.weather[0].main
+        let temps = res.main.temp
+        let locationWeather = {
+            weather,
+            temps
+        }
+        // console.log('locationWeather:', locationWeather)
+        return locationWeather
+    })
 }
