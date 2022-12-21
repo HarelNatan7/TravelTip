@@ -8,6 +8,7 @@ export const locService = {
     getPlace,
     removePlace,
     savePlace,
+    getPlaces
 }
 const STORAGE_PLACES_KEY = 'placesDB'
 
@@ -52,6 +53,10 @@ function _createPlace(loc) {
 
 function addPlace(loc) {
     gPlaces.unshift(_createPlace(loc))
+}
+
+function getPlaces() {
+    return gPlaces
 }
 
 

@@ -16,6 +16,8 @@ function onInit() {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
+
+    renderPlaceList()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -71,6 +73,20 @@ function onAddPlace(ev) {
 }
 
 function renderPlaceList() {
+    const places = locService.getPlaces()
+    console.log('places', places);
+    const strHTML = places.map(place =>
+        `
+        <ul>
+        <li>id: ${place.id}</li>
+        <li>lat:${place.lat} </li>
+        <li>lng: ${place.lng}</li>
+        <li>time: ${place.time}</li>
+    </ul>
+        `
+    ).join('')
+    const elLocs = document.querySelector('.locs')
+    elLocs.innerHTML = strHTML
 
 }
 
