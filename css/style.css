@@ -8,81 +8,9 @@
 
 /* Cmps */
 @import './cmps/header.css';
+@import './cmps/main-content.css';
+@import './cmps/locations.css';
+@import './cmps/weather.css';
 
 
 
-
-
-.main-content-container {
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: space-around;
-    align-items: center;
-    color: aliceblue;
-    font-size: 20px;
-}
-
-.btn-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    flex-direction: column;
-    align-items: center;
-}
-
-.btn-container button {
-    width: 150px;
-    height: 50px;
-    border-radius: 25px;
-    font-size: 17px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.weather-loc-container {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    display: flex;
-    width: fit-content;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.user-location-btn {
-    border: 0;
-    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.7);
-    border-radius: 30px;
-    padding: 7px;
-    cursor: pointer;
-    background-color: lightpink;
-    color: rgb(77, 60, 39);
-}
-
-.list-locs {
-    cursor: pointer;
-    border: 1px solid snow;
-    display: flex;
-    flex-direction: column;
-    /* width: 100%; */
-    justify-content: center;
-    margin-left: 15px;
-    margin-right: 15px;
-
-}
-
-.list-locs li {
-    list-style: none;
-    font-size: 1rem;
-
-}
-
-.locs {
-    display: grid;
-    /* flex-direction: column; */
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.ul-btn-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-}

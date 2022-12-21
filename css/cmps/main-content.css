@@ -1,0 +1,15 @@
+/* Main Content */
+
+.main-content-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    place-items: center;
+    margin: 0 auto;
+    padding: 2vh;
+    height: 50vh;
+}
+
+.main-content-container span {
+    font-size: 1.2rem;
+    font-weight: bolder;
+}

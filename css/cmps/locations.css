@@ -1,0 +1,44 @@
+/* Locations */
+
+.locations-container {
+    text-align: center;
+    border: 1px solid rgba(173, 216, 230, 0.459);
+    border-radius: 20px;
+    height: 100%;
+    overflow: auto;
+}
+
+.location {
+    background-color: lightgrey;
+    text-align: left;
+    border-radius: 20px;
+}
+
+.location li {
+    list-style: none;
+    font-size: 1rem;
+}
+
+.locations {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 7px;
+}
+
+.ul-btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.location-btn {
+    background-color: rgb(77, 97, 97);
+    border-radius: 30px;
+    padding: 7px;
+    border: 0;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+}
+
+.location-btn:hover {
+    background-color: rgba(77, 97, 97, 0.623);
+}

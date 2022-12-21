@@ -1,0 +1,13 @@
+/* Weather */
+
+.weather-container {
+background-color: rgb(142, 142, 142);
+height: 100px;
+width: 50vw;
+text-align: center;
+font-size: 3rem;
+border-radius: 20px;
+margin-bottom: 5vh;
+margin: 0 auto;
+}
+

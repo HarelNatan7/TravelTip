@@ -12,32 +12,28 @@
     <div class="header-container">
         <h1>TravelTip</h1>
         <label for="search">
-            <input type="search" id="search" placeholder="Search Place">
-            <button class="go-btn" type="submit" onclick="onSearchLocation()">Go</button>
-            <button class="user-location-btn" onclick="onUserLocation()">Go To Your Location</button>
+            <input type="search" id="search" placeholder="Find Your Place">
+            <button class="go-btn" type="submit" onclick="onSearchLocation()">GO</button> <br>
         </label>
     </div>
+    <div class="goto-btn-container">
+        <button class="user-location-btn" onclick="onUserLocation()">Go To Your Location</button>
+    </div>
+    <div class="weather-container">Your Current Weather is: </div>
     <div class="main-content-container">
-
-        <div class="weather-loc-container">
-            <p>Locations:
-            <pre class="locs">
-
-            </pre>
-            </p>
-            <div class="weather">weather</div>
+        <div class="map" id="map" style="width: 100%; height: 100%;"></div>
+        <div class="locations-container">
+            <div> <span>Locations:</span>
+            <pre class="locations"></pre>
+            </div>
         </div>
-        <div class="map" id="map" style="width: 50%; height: 400px;"></div>
-
         <div class="btn-container">
-            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-            <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-            <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+            <!-- <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button> -->
+            <!-- <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button> -->
+            <!-- <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button> -->
+            <!-- <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button> -->
         </div>
     </div>
-
-
     <script src="js/lib/axios.js"></script>
     <script src="js/lib/jquery.js"></script>
     <script src="js/lib/swal.js"></script>

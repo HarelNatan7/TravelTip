@@ -83,17 +83,17 @@ function renderPlaceList() {
 
         const strHTML = places.map(place =>
             `
-             <ul class="list-locs">
-             <li>name: ${place.name}</li>
-             <li>time: ${place.time}</li>
+             <ul class="location">
+             <li>Name: ${place.name}</li>
+             <li>Created At: ${place.time}</li>
              <div class="ul-btn-container"> 
-             <button id="${place.id}" onclick="onGoTo(this.id)" class="btn-go-to">Go to</button>
-             <button id="${place.id}" onclick="onDelete(this.id)" class="btn-del">Delete!</button>
+             <button class="location-btn" id="${place.id}" onclick="onGoTo(this.id)">Go to</button>
+             <button class="location-btn" id="${place.id}" onclick="onDelete(this.id)">Delete</button>
              </div>
          </ul>
              `
         ).join('')
-        const elLocs = document.querySelector('.locs')
+        const elLocs = document.querySelector('.locations')
         elLocs.innerHTML = strHTML
 
     })
