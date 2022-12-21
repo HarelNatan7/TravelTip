@@ -166,4 +166,5 @@ function createFormatedDate(date) {
 function onUserLocation() {
     getPosition()
         .then(pos => mapService.goToUserLocation(pos.coords.latitude, pos.coords.longitude))
+
 }
