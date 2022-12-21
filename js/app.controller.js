@@ -12,7 +12,6 @@ window.onUserLocation = onUserLocation
 window.onSearchLocation = onSearchLocation
 window.onGoTo = onGoTo
 window.onDelete = onDelete
-window.queryParams = queryParams
 window.renderParams = renderParams
 
 function onInit() {
@@ -109,8 +108,6 @@ function renderPlaceList() {
 
 }
 
-// renderParams()
-
 function renderParams() {
     let params = new URLSearchParams(window.location.search)
     console.log('params', params);
@@ -118,10 +115,18 @@ function renderParams() {
     let lng = params.getAll('lng')
     let queryLat = lat.toString()
     let queryLng = lng.toString()
+    locService.getWeather(queryLat, queryLng).then(res => renderWeather(res))
     mapService.initMap(+queryLat, +queryLng)
 }
 
-
+function renderWeather(locationWeather) {
+    const elTemps = document.querySelector('.temps-container')
+    let strHTML = `
+            <span class="status">${locationWeather.weather}</span>
+            <span class="temps">${Math.floor(locationWeather.temps / 19)}°C</span>
+`
+elTemps.innerHTML = strHTML
+}
 
 function onDelete(id) {
     locService.deleteLoc(id)
