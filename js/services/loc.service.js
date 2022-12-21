@@ -3,7 +3,12 @@ import { storageService } from './async-storage.service.js'
 export const locService = {
     getLocs,
     getStroageKey,
-    addPlace
+    addPlace,
+    queryPlaces,
+    getPlace,
+    removePlace,
+    savePlace,
+    getPlaces
 }
 const STORAGE_PLACES_KEY = 'placesDB'
 
@@ -48,6 +53,10 @@ function _createPlace(loc) {
 
 function addPlace(loc) {
     gPlaces.unshift(_createPlace(loc))
+}
+
+function getPlaces() {
+    return gPlaces
 }
 
 

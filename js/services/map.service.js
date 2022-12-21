@@ -6,10 +6,7 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    queryPlaces,
-    getPlace,
-    removePlace,
-    savePlace,
+
 }
 
 // Var that is used throughout this Module (not global)
