@@ -1,0 +1,37 @@
+/* Header */
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5vh;
+    padding: 2vh;
+    background-color: rgb(18, 24, 24);
+}
+
+.header-container h1 {
+    font-family: rubik;
+    font-size: 3rem;
+    color: #fff;
+}
+
+input {
+    background-color: rgb(77, 97, 97);
+    color: #fff;
+    padding: 7px;
+    border-radius: 30px;
+    border: 0;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.7);
+}
+
+.go-btn {
+    padding: 5px;
+    border-radius: 30%;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.7);
+}
+
+.user-location-btn {
+    margin-left: 20px;
+}

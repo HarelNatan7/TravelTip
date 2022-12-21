@@ -1,0 +1,10 @@
+/* Base */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgba(24, 30, 30, 0.845);
+    margin: 0 auto;
+}

@@ -10,17 +10,16 @@
 
 <body>
     <div class="header-container">
-        <h1>TravelTip Starter</h1>
+        <h1>TravelTip</h1>
         <label for="search">
-            <input type="search" id="search" placeholder="Search...">
-            <button type="submit" onclick="onSearchLocation()">Search</button>
+            <input type="search" id="search" placeholder="Search Place">
+            <button class="go-btn" type="submit" onclick="onSearchLocation()">Go</button>
             <button class="user-location-btn" onclick="onUserLocation()">Go To Your Location</button>
         </label>
     </div>
     <div class="main-content-container">
 
         <div class="weather-loc-container">
-            <p>You are at: <span class="user-pos"></span></p>
             <p>Locations:
             <pre class="locs">
 

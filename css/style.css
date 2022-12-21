@@ -1,34 +1,26 @@
-* {
-    box-sizing: border-box;
-}
+/* Setup */
+@import './setup/vars.css';
+@import './setup/font-face.css';
 
-body {
-    background-color: rgb(204, 207, 207);
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
+/* Basic */
+@import './basic/base.css';
+@import './basic/helpers.css';
+
+/* Cmps */
+@import './cmps/header.css';
 
 
-.header-container {
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
-}
 
 
 .main-content-container {
     display: flex;
     /* flex-direction: column; */
     justify-content: space-around;
-    background-color: black;
     align-items: center;
     color: aliceblue;
     font-size: 20px;
 }
-
-
 
 .btn-container {
     display: grid;
@@ -45,9 +37,6 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-
-
-
 .weather-loc-container {
     font-family: Georgia, 'Times New Roman', Times, serif;
     display: flex;
@@ -61,12 +50,11 @@ body {
     border: 0;
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.7);
     border-radius: 30px;
-    padding: 5px;
+    padding: 7px;
     cursor: pointer;
     background-color: lightpink;
     color: rgb(77, 60, 39);
 }
-
 
 .list-locs {
     cursor: pointer;
@@ -85,7 +73,6 @@ body {
     font-size: 1rem;
 
 }
-
 
 .locs {
     display: grid;
