@@ -1,7 +1,6 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-
 window.onload = onInit
 window.onAddMarker = addMarkers
 window.onPanTo = onPanTo
@@ -13,6 +12,7 @@ window.onSearchLocation = onSearchLocation
 window.onGoTo = onGoTo
 window.onDelete = onDelete
 window.renderParams = renderParams
+
 
 function onInit() {
     mapService.initMap()
@@ -49,10 +49,6 @@ function addMarkers() {
             return mapService.addMarker({ lat: loc.lat, lng: loc.lng })
         });
     });
-
-
-
-
 }
 
 function onGetLocs() {
@@ -86,10 +82,8 @@ function onAddPlace(ev) {
         time: createFormatedDate(Date.now())
     }
 
-    console.log('locationlt',);
-    console.log('locationlng', location.lng);
-
     mapService.queryParams({ lat: location.lat, lng: location.lng })
+    mapService.getWeather(location.lat, location.lng).then(res => renderWeather(res))
     locService.addPlace(location)
     addMarkers()
     renderPlaceList()
@@ -98,7 +92,6 @@ function onAddPlace(ev) {
 function renderPlaceList() {
     return locService.getLocs().then(places => {
         console.log('places', places);
-
         const strHTML = places.map(place =>
             `
              <ul class="location">
@@ -113,9 +106,7 @@ function renderPlaceList() {
         ).join('')
         const elLocs = document.querySelector('.locations')
         elLocs.innerHTML = strHTML
-
     })
-
 }
 
 function renderParams() {
@@ -125,7 +116,7 @@ function renderParams() {
     let lng = params.getAll('lng')
     let queryLat = lat.toString()
     let queryLng = lng.toString()
-    locService.getWeather(queryLat, queryLng).then(res => renderWeather(res))
+    mapService.getWeather(queryLat, queryLng).then(res => renderWeather(res))
     mapService.initMap(+queryLat, +queryLng)
 }
 
@@ -149,7 +140,7 @@ function onDelete(id) {
 function onGoTo(id) {
     locService.getCurrLocation(id).then(res => {
         mapService.queryParams(res)
-
+        mapService.getWeather(res.lat, res.lng).then(res => renderWeather(res))
         addMarkers()
         return mapService.initMap(res.lat, res.lng)
     })
@@ -171,5 +162,8 @@ function createFormatedDate(date) {
 
 function onUserLocation() {
     getPosition()
-        .then(pos => mapService.goToUserLocation(pos.coords.latitude, pos.coords.longitude))
+        .then(pos => {
+            mapService.goToUserLocation(pos.coords.latitude, pos.coords.longitude)
+            mapService.getWeather(pos.coords.latitude, pos.coords.longitude).then(res => renderWeather(res))
+        })
 }

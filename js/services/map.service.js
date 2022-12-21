@@ -1,21 +1,16 @@
 import { storageService } from './async-storage.service.js'
 
-
-
 export const mapService = {
     initMap,
     addMarker,
     panTo,
     goToUserLocation,
     goToSearchedLocation,
+    queryParams,
+    getWeather
 }
 
-// Var that is used throughout this Module (not global)
 var gMap
-
-
-
-
 
 function goToUserLocation(lat, lng) {
     initMap(lat, lng)
@@ -32,9 +27,25 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             })
             gMap.addListener("click", onAddPlace)
         })
-
 }
 
+function getWeather(lat, lan) {
+    const WeAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lan}&appid=dfc218ff46f1927e47993f84a5372d8f`
+    return axios.get(WeAPI).then(res => {
+        res = res.data
+        // console.log('res:', res)
+        // console.log('res.weather[0].main:', res.weather[0].main)
+        // console.log('res.main.temp:', res.main.temp)
+        let weather = res.weather[0].main
+        let temps = res.main.temp
+        let locationWeather = {
+            weather,
+            temps
+        }
+        // console.log('locationWeather:', locationWeather)
+        return locationWeather
+    })
+}
 
 function queryParams(res) {
     const queryStringParams = `?lat=${res.lat}&lng=${res.lng}`
@@ -77,7 +88,6 @@ function _connectGoogleApi() {
 function goToSearchedLocation(locationName) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+${locationName}&key=AIzaSyBlbVbvWFhmMwFiVvbSeax1Af8UpghJ6CY`).then(res => {
         let location = res.data.results[0].geometry.location
-        console.log('location:', location)
         initMap(location.lat, location.lng)
     })
 }
