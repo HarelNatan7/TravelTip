@@ -41,6 +41,16 @@ function savePlace(place) {
     }
 }
 
+function goToUserLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+        let lat = position.coords.latitude;
+        let lng = position.coords.longitude;
+        console.log('lat:', lat)
+        console.log('lng:', lng)
+        // initMap(lat, lng)
+    });
+}
+
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
     return _connectGoogleApi()

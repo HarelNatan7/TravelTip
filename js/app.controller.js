@@ -8,6 +8,7 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onAddPlace = onAddPlace
+window.onUserLocation = onUserLocation
 
 function onInit() {
     mapService.initMap()
@@ -82,4 +83,8 @@ function createFormatedDate(date) {
     }
     const formatedTime = new Intl.DateTimeFormat('he', options).format(date)
     return formatedDate + ', ' + formatedTime
+}
+
+function onUserLocation() {
+    goToUserLocation()
 }
