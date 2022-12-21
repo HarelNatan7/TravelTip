@@ -8,6 +8,7 @@ export const mapService = {
     panTo,
     goToUserLocation,
     goToSearchedLocation,
+    queryParams
 }
 
 // Var that is used throughout this Module (not global)
@@ -18,11 +19,13 @@ var gMap
 
 
 function goToUserLocation(lat, lng) {
+
     initMap(lat, lng)
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
+    queryParams({ lat: lat, lng: lng })
     return _connectGoogleApi()
         .then(() => {
             console.log('google available')
@@ -32,10 +35,21 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap)
+
             gMap.addListener("click", onAddPlace)
         })
 
 }
+
+
+function queryParams(res) {
+    console.log('res', res);
+
+    const queryStringParams = `?lat=${res.lat}&lng=${res.lng}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({

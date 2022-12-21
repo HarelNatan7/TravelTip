@@ -56,7 +56,7 @@
     color: rgb(77, 60, 39);
 }
 
-.list-locs {
+.location {
     cursor: pointer;
     border: 1px solid snow;
     display: flex;
@@ -68,7 +68,7 @@
 
 }
 
-.list-locs li {
+.location li {
     list-style: none;
     font-size: 1rem;
 

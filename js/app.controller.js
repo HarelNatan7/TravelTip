@@ -12,14 +12,18 @@ window.onUserLocation = onUserLocation
 window.onSearchLocation = onSearchLocation
 window.onGoTo = onGoTo
 window.onDelete = onDelete
+window.queryParams = queryParams
+window.renderParams = renderParams
 
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
+            renderPlaceList()
+            renderParams()
         })
         .catch(() => console.log('Error: cannot init map'))
-    renderPlaceList()
+
 }
 
 function onSearchLocation() {
@@ -70,6 +74,11 @@ function onAddPlace(ev) {
         lng: ev.latLng.lng(),
         time: createFormatedDate(Date.now())
     }
+
+    console.log('locationlt',);
+    console.log('locationlng', location.lng);
+
+    mapService.queryParams({ lat: location.lat, lng: location.lng })
     locService.addPlace(location)
     // renderMarkers(gMap)
     // console.log('gMap', gMap);
@@ -83,7 +92,7 @@ function renderPlaceList() {
 
         const strHTML = places.map(place =>
             `
-             <ul class="list-locs">
+             <ul class="location">
              <li>name: ${place.name}</li>
              <li>time: ${place.time}</li>
              <div class="ul-btn-container"> 
@@ -100,17 +109,34 @@ function renderPlaceList() {
 
 }
 
+// renderParams()
+
+function renderParams() {
+    let params = new URLSearchParams(window.location.search)
+    console.log('params', params);
+    let lat = params.getAll('lat')
+    let lng = params.getAll('lng')
+    let queryLat = lat.toString()
+    let queryLng = lng.toString()
+    mapService.initMap(+queryLat, +queryLng)
+}
+
+
 
 function onDelete(id) {
     locService.deleteLoc(id)
     renderPlaceList()
 }
 
+
 function onGoTo(id) {
     locService.getCurrLocation(id).then(res => {
+        mapService.queryParams(res)
+        // renderFilterByQueryStringParams()
         return mapService.initMap(res.lat, res.lng)
     })
 }
+
 
 
 
