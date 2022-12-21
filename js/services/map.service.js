@@ -28,17 +28,27 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
                 center: { lat, lng },
-                zoom: 15
+                zoom: 12
             })
             gMap.addListener("click", onAddPlace)
         })
 
 }
 
+
+function queryParams(res) {
+    const queryStringParams = `?lat=${res.lat}&lng=${res.lng}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+
 function addMarker(loc) {
+    let iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
+        icon: iconBase + 'library_maps.png',
         title: 'Hello World!'
     })
     return marker
