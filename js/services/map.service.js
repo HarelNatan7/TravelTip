@@ -1,5 +1,7 @@
 import { storageService } from './async-storage.service.js'
 
+
+
 export const mapService = {
     initMap,
     addMarker,
@@ -9,6 +11,56 @@ export const mapService = {
 
 // Var that is used throughout this Module (not global)
 var gMap
+const STORAGE_PLACES_KEY = 'placesDB'
+
+const gPlaces = localService.load(STORAGE_PLACES_KEY) || _createPlaces()
+
+console.log('gPlaces', gPlaces);
+
+
+function _createPlaces() {
+    const places = [{
+        id: util.makeId(),
+        lat: 32,
+        lng: 32,
+        name: 'Home',
+        time: '16/10/22, 13:01'
+    }, {
+        id: util.makeId(),
+        lat: 55,
+        lng: 55,
+        name: 'Burekas Haagala',
+        time: '16/10/22, 13:01'
+    }, {
+        id: util.makeId(),
+        lat: 11,
+        lng: 11,
+        name: 'savta',
+        time: '16/10/22, 13:01'
+    }]
+    localService.save(STORAGE_PLACES_KEY, places)
+    return places
+
+}
+
+function _createPlace(loc) {
+
+
+
+}
+
+
+function addPlace(loc) {
+
+    gPlaces.unshift(_createPlace(loc))
+    localService.save(STORAGE_PLACES_KEY, gPlaces)
+
+
+}
+
+
+
+
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
@@ -21,7 +73,9 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap)
+            gMap.addListener("click", onAddPlace)
         })
+
 }
 
 function addMarker(loc) {

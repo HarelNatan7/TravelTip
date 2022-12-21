@@ -1,11 +1,13 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
+
 window.onload = onInit
 window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onAddPlace = onAddPlace
 
 function onInit() {
     mapService.initMap()
@@ -50,4 +52,31 @@ function onGetUserPos() {
 function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
+}
+
+function onAddPlace(ev) {
+
+    const location = {
+        id: util.makeId(),
+        lat: ev.latLng.lat(),
+        lng: ev.latLng.lng(),
+        time: createFormatedDate(Date.now())
+    }
+    addPlace(location)
+    // renderPlaceList()
+    // renderMarkers(gMap)
+    // console.log('gMap', gMap);
+    console.log('location', location);
+
+}
+
+
+function createFormatedDate(date) {
+    const formatedDate = new Intl.DateTimeFormat('en').format(date)
+    const options = {
+        hour: '2-digit',
+        minute: '2-digit'
+    }
+    const formatedTime = new Intl.DateTimeFormat('he', options).format(date)
+    return formatedDate + ', ' + formatedTime
 }
