@@ -8,6 +8,7 @@ export const mapService = {
     panTo,
     goToUserLocation,
     goToSearchedLocation,
+    queryParams
 }
 
 // Var that is used throughout this Module (not global)
@@ -44,6 +45,8 @@ function queryParams(res) {
 
 
 function addMarker(loc) {
+    console.log('locMARKER', loc);
+
     let iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     var marker = new google.maps.Marker({
         position: loc,
