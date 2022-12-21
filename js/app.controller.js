@@ -3,7 +3,7 @@ import { mapService } from './services/map.service.js'
 
 
 window.onload = onInit
-window.onAddMarker = onAddMarker
+window.onAddMarker = addMarkers
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
@@ -12,7 +12,6 @@ window.onUserLocation = onUserLocation
 window.onSearchLocation = onSearchLocation
 window.onGoTo = onGoTo
 window.onDelete = onDelete
-window.queryParams = queryParams
 window.renderParams = renderParams
 
 function onInit() {
@@ -21,6 +20,7 @@ function onInit() {
             console.log('Map is ready')
             renderPlaceList()
             renderParams()
+            addMarkers()
         })
         .catch(() => console.log('Error: cannot init map'))
 
@@ -39,9 +39,20 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
+function addMarkers() {
     console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+
+
+    return locService.getLocs().then(locs => {
+        locs.forEach(loc => {
+
+            return mapService.addMarker({ lat: loc.lat, lng: loc.lng })
+        });
+    });
+
+
+
+
 }
 
 function onGetLocs() {
@@ -80,9 +91,7 @@ function onAddPlace(ev) {
 
     mapService.queryParams({ lat: location.lat, lng: location.lng })
     locService.addPlace(location)
-    // renderMarkers(gMap)
-    // console.log('gMap', gMap);
-    console.log('location', location);
+    addMarkers()
     renderPlaceList()
 }
 
@@ -126,13 +135,16 @@ function renderParams() {
 function onDelete(id) {
     locService.deleteLoc(id)
     renderPlaceList()
+    addMarkers()
+
 }
 
 
 function onGoTo(id) {
     locService.getCurrLocation(id).then(res => {
         mapService.queryParams(res)
-        // renderFilterByQueryStringParams()
+
+        addMarkers()
         return mapService.initMap(res.lat, res.lng)
     })
 }
