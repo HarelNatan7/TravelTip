@@ -12,6 +12,7 @@ window.onSearchLocation = onSearchLocation
 window.onGoTo = onGoTo
 window.onDelete = onDelete
 window.renderParams = renderParams
+window.onCopyLink = onCopyLink
 
 
 function onInit() {
@@ -29,6 +30,10 @@ function onInit() {
 function onSearchLocation() {
     let locationName = document.getElementById('search').value
     mapService.goToSearchedLocation(locationName)
+}
+
+function onCopyLink() {
+    navigator.clipboard.writeText(window.location.href);
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -126,7 +131,7 @@ function renderWeather(locationWeather) {
             <span class="status">${locationWeather.weather}</span>
             <span class="temps">${Math.floor(locationWeather.temps / 19)}°C</span>
 `
-elTemps.innerHTML = strHTML
+    elTemps.innerHTML = strHTML
 }
 
 function onDelete(id) {
